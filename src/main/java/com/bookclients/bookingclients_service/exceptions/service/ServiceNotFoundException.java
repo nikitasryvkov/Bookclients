@@ -1,0 +1,7 @@
+package com.bookclients.bookingclients_service.exceptions.service;
+
+public class ServiceNotFoundException extends RuntimeException {
+    public ServiceNotFoundException(String message) {
+        super(message);
+    }
+}
