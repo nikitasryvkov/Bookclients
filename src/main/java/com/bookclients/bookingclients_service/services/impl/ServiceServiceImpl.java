@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bookclients.bookingclients_service.dtos.request.service.ServiceCreateDTO;
 import com.bookclients.bookingclients_service.dtos.request.service.ServiceUpdateDTO;
+import com.bookclients.bookingclients_service.exceptions.service.ServiceNotFoundException;
 import com.bookclients.bookingclients_service.models.Service;
 import com.bookclients.bookingclients_service.repositories.ServiceRepository;
 import com.bookclients.bookingclients_service.services.ServiceService;
@@ -25,7 +26,7 @@ public class ServiceServiceImpl implements ServiceService {
     @Override
     public ServiceUpdateDTO updateService(UUID id, ServiceUpdateDTO serviceDTO) {
         Service service = serviceRepository.findById(id).orElseThrow(
-                () -> new com.bookclients.bookingclients_service.exceptions.service.ServiceNotFoundException(
+                () -> new ServiceNotFoundException(
                         "Услуга с id: " + id + " не найдена"));
 
         service.setTitle(serviceDTO.getTitle());
@@ -43,5 +44,4 @@ public class ServiceServiceImpl implements ServiceService {
         serviceRepository.save(modelMapper.map(service, Service.class));
         return service;
     }
-
 }
